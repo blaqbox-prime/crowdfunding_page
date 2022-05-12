@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e60ed1d1.css",
+    "main.js": "/static/js/main.0461a61f.js",
+    "static/media/image-hero-desktop.jpg": "/static/media/image-hero-desktop.631209c1fe8e34fb78c2.jpg",
+    "static/media/image-hero-mobile.jpg": "/static/media/image-hero-mobile.d4f477d4cd11ac3a012f.jpg",
+    "index.html": "/index.html",
+    "main.e60ed1d1.css.map": "/static/css/main.e60ed1d1.css.map",
+    "main.0461a61f.js.map": "/static/js/main.0461a61f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e60ed1d1.css",
+    "static/js/main.0461a61f.js"
+  ]
+}
