@@ -1,0 +1,15 @@
+.main_header{
+    background-image: url("/public/images/image-hero-desktop.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
+}
+
+@media screen and (max-width: 768px){
+    .main_header{
+        background-image: url("/public/images/image-hero-mobile.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center
+    }
+}
