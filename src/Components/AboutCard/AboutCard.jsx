@@ -1,21 +1,27 @@
-import { Heading, Text } from '@chakra-ui/react'
+import { Heading, Text, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import Card from '../Card/Card'
 import RewardCard from '../RewardCard/RewardCard'
 
 function AboutCard() {
+  const [isSmallerThan410] = useMediaQuery('(max-width: 410px)');
+
   return (
     <Card>
         <Heading textAlign={'left'} fontSize={'2xl'} mb={12}>
             About this project
         </Heading>
-        <Text color="hsl(0, 0%, 48%)" textAlign={'left'} lineHeight={2}>
+        <Text color="hsl(0, 0%, 48%)" textAlign={'left'} lineHeight={2} 
+        fontSize={isSmallerThan410 && 'sm'}
+        >
         The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen 
   to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve 
   your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
   </Text>
     <br />
-  <Text lineHeight={2} color="hsl(0, 0%, 48%)" textAlign={'left'} mb={4}>
+  <Text lineHeight={2} color="hsl(0, 0%, 48%)" textAlign={'left'} mb={4}
+  fontSize={isSmallerThan410 && 'sm'}
+  >
   Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer 
   to allow notepads, pens, and USB sticks to be stored under the stand.
   </Text>

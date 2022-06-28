@@ -1,7 +1,7 @@
 {
   "name": "crowdfunding_page",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://blaqbox-prime.github.io",
   "dependencies": {
     "@chakra-ui/react": "^1.8.6",

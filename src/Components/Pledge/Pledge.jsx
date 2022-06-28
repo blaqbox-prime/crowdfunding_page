@@ -10,8 +10,9 @@ import {
   StatHelpText,
   StatNumber,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
-import React from "react";
+import React, {useState} from "react";
 import { Colors } from "../../Colors";
 import Card from "../Card/Card";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
@@ -26,51 +27,93 @@ function Pledge({
   withReward = true,
   submit
 }) {
+
+  const [input,setInput] = useState('0');
+  const [isSmallerThan410] = useMediaQuery('(max-width: 410px)');
+
+  const validateAndSubmit = () => {
+
+
+    const regEx = RegExp(/\d+(\.\dd)*$/);
+
+    console.log(regEx.test(input));
+
+    if(input.length !== 0 && Number(input) > 0){
+      if(regEx.test(input)){
+        submit();
+        setInput('0');
+        return;
+      }
+    }
+    alert('Please enter a valid pledge amount.')
+
+  }
+
   return (
     <Card py={6} opacity={radioValue !== '0' ? amountLeft > 0 ? 1 : .5 : 1}>
       <Flex direction={"row"} mt={3}>
         <Box mt={2}>
-          <Radio size={"lg"} value={radioValue} />
+          <Radio size={isSmallerThan410 ? 'md' : "lg"} value={radioValue} disabled={radioValue !== '0' ? amountLeft > 0 ? false : true : false}/>
         </Box>
         <Box ml={2}>
           {/* Header */}
-          <Flex alignItems={"center"} justifyContent={"space-between"}>
-            <Stack direction="row"  alignItems={'center'}>
-              <Heading fontSize={"lg"}
+          <Flex alignItems={"center"} justifyContent={!isSmallerThan410 && "space-between"}
+          direction={isSmallerThan410 && 'column'}
+          >
+            <Stack direction={isSmallerThan410 ? 'column' :"row"}  alignItems={isSmallerThan410 ? 'flex-start' :'center'}>
+              <Heading fontSize={isSmallerThan410 ? 'md' : "lg"}
               _hover={{
                   cursor: "pointer",
                   color: Colors.brand.moderate_cyan
               }}
               >{title}</Heading>
-              { pledgeMin && <Text color={Colors.brand.moderate_cyan}>{pledgeMin}</Text>}
+              { pledgeMin && <Text color={Colors.brand.moderate_cyan} fontSize={isSmallerThan410 && 'sm'} >{pledgeMin}</Text>}
             </Stack>
             {/* Amount Left */}
-            {amountLeft && <Box>
+            {!isSmallerThan410 && <>{  amountLeft && <Box>
               <Stat>
                 <Flex>
                   <StatNumber>{amountLeft}</StatNumber>
                   <StatHelpText ml={2}>Left</StatHelpText>
                 </Flex>
               </Stat>
-            </Box>}
+            </Box>
+            }</>
+            }
           </Flex>
           {/* Description */}
-          <Text textAlign={"left"} color={Colors.brand.dark_gray}>
+          <Text fontSize={isSmallerThan410 && 'sm'} textAlign={"left"} color={Colors.brand.dark_gray}>
             {description}
           </Text>
+          {/* DESKTOP VIEW FOR AMOUNT LEFT */}
+          {isSmallerThan410 && <>{  amountLeft && <Box>
+              <Stat>
+                <Flex>
+                  <StatNumber>{amountLeft}</StatNumber>
+                  <StatHelpText ml={2}>Left</StatHelpText>
+                </Flex>
+              </Stat>
+            </Box>
+            }</>
+            }
         </Box>
       </Flex>
       {selected && (
         <>
           <Divider my={5} />
-          <Flex alignItems={"center"} justifyContent={"space-between"}>
-            <Text className="enterPledgePrompt" color={Colors.brand.dark_gray}>
+          <Flex alignItems={"center"} justifyContent={"space-between"}
+          direction={isSmallerThan410 && 'column'}
+          >
+            <Text className="enterPledgePrompt" color={Colors.brand.dark_gray}
+            fontSize={isSmallerThan410 && 'sm'}
+            mb={isSmallerThan410 && 3}
+            >
               Enter your pledge
             </Text>
             {/*  */}
             <Flex>
             <Flex
-             height={50}
+             height={45}
              width={"100px"}
              px={4}
              py={3}
@@ -87,6 +130,8 @@ function Pledge({
                 $
               </Text>
               <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
               border={'none'}
               textAlign={'center'}
               fontWeight={'bold'}
@@ -99,7 +144,7 @@ function Pledge({
                 }}
               />
             </Flex>
-              <PrimaryButton text={"Continue"} onClick={() => submit()}/>
+              <PrimaryButton text={"Continue"} onClick={() => validateAndSubmit()}/>
             </Flex>
           </Flex>
         </>

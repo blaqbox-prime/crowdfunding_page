@@ -1,10 +1,13 @@
-import { Box, Flex, Heading, Icon, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Icon, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import Card from '../Card/Card'
 import {FaBookmark} from 'react-icons/fa'
 import PrimaryButton from '../PrimaryButton/PrimaryButton'
 
 function ProjectHeaderCard({title, description, isBookmarked, toggleBookmark, onBackProjectClick}) {
+
+  const [isSmallerThan410] = useMediaQuery('(max-width: 410px)');
+
   return (
     <Card>
       <Image
@@ -36,7 +39,8 @@ function ProjectHeaderCard({title, description, isBookmarked, toggleBookmark, on
        display={'flex'}
        alignItems={'center'}
        justifyContent={'space-between'}
-       px={6}
+       px={isSmallerThan410 ? 0 : 6}
+       w={isSmallerThan410 && '50px'}
        rounded={'3xl'}
        onClick={()=> {toggleBookmark()}}
        >
@@ -45,7 +49,7 @@ function ProjectHeaderCard({title, description, isBookmarked, toggleBookmark, on
           height={'50px'}
           w={'50px'}
           alignItems={'center'}
-          ml={'-25px'}
+          ml={isSmallerThan410 ? 0 :'-25px'}
           
           backgroundColor={isBookmarked ? 'hsl(176, 50%, 47%)' : 'black'}
           transitionDuration={'.3s'}
@@ -55,7 +59,11 @@ function ProjectHeaderCard({title, description, isBookmarked, toggleBookmark, on
              color={isBookmarked ? 'white' : 'hsl(0, 0%, 48%)' }
              />
          </Box>
-         <Text textColor={'white'}
+         {
+          isSmallerThan410 ?
+          ''
+          :
+          <Text textColor={'white'}
           fontWeight={'bold'} 
           fontSize={'sm'}
           pl={2}
@@ -64,6 +72,7 @@ function ProjectHeaderCard({title, description, isBookmarked, toggleBookmark, on
           > 
           {isBookmarked ? 'Bookmarked' : 'Bookmark'} 
           </Text>
+         }
        </Box>
        </Flex>
     </Card>

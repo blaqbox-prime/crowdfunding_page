@@ -5,6 +5,10 @@
     background-position: center
 }
 
+.nav-link:hover{
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px){
     .main_header{
         background-image: url("/public/images/image-hero-mobile.jpg");
